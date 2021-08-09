@@ -7,7 +7,7 @@ inicio
     varfim;
     escreva "Digite B";
     leia B;
-    escreva "Digite A:";
+    escreva "Digite A";
     leia A;
 
     se(B>2)
