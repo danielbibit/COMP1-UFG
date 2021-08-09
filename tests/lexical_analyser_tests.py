@@ -16,7 +16,8 @@ test_strings = [
 ]
 
 # f = open('tests/tokens_test.mgol')
-f = open('tests/source_test.mgol')
+f = open('tests/valid_source_test.mgol')
+# f = open('tests/invalid_source_test.mgol')
 
 with f:
     f1 = f.read()

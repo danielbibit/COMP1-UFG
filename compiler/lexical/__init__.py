@@ -15,6 +15,8 @@ class Scanner():
         self.source = source
         self.source_size = len(source)
         self.count = -1
+        self.line = 1
+        self.column = 0
         self.current_state = 'q0'
         self.buffer = ''
 
@@ -57,19 +59,25 @@ class Scanner():
         runs = 0
         while self.count < self.source_size:
             self.count += 1
+            self.column += 1
 
             if self.current_state == 'q0':
                 self.buffer = ''
 
             c = self.source[self.count]
+            if c == '\n':
+                self.line += 1
+                self.column = 0
+
             # print('current c', c)
             self.buffer += c
             self.current_state = self.automaton(c)
             # print('got to state', self.current_state)
 
             if self.current_state == False:
-                yield Token('ERRO', 'errotext', 'NULO')
+                yield Token('ERRO', 'ln '+str(self.line)+' col: ' + str(self.column), 'NULO')
                 # yield 'error ' + c
+                raise
                 self.current_state = 'q0'
 
             if self.current_state in final_states:
