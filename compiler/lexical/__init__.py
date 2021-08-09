@@ -20,6 +20,10 @@ class Scanner():
         self.current_state = 'q0'
         self.buffer = ''
 
+        if source[-1] != '\n':
+            print('File shoud end with a \\n, exiting...')
+            exit()
+
     def automaton(self, character):
         if self.current_state in transitions:
             # single character is availabe. It has priority (q11 and q15)
@@ -38,13 +42,15 @@ class Scanner():
                         if character in ['e', 'E']:
                             symbol = character
                         else:
-                            return False #Processing a num, recived invalid character
+                            #Processing a num, recived invalid character
+                            return False
                     else:
                         symbol = 'CHARACTER'
                 elif character in D:
                     symbol = 'DIGIT'
                 else:
-                    return False #The symbol is not valid, expecting char or num
+                    #The symbol is not valid, expecting char or num
+                    return False
 
                 #Verify if exist a transition for this symbol
                 if symbol in transitions[self.current_state]:
@@ -55,9 +61,7 @@ class Scanner():
         return False #current_state don't have a transition
 
     def next(self):
-        # print('got into next, with source size ', self.source_size)
-        runs = 0
-        while self.count < self.source_size:
+        while self.count < self.source_size-1:
             self.count += 1
             self.column += 1
 
@@ -69,21 +73,16 @@ class Scanner():
                 self.line += 1
                 self.column = 0
 
-            # print('current c', c)
             self.buffer += c
             self.current_state = self.automaton(c)
-            # print('got to state', self.current_state)
 
             if self.current_state == False:
                 yield Token('ERRO', 'ln '+str(self.line)+' col: ' + str(self.column), 'NULO')
-                # yield 'error ' + c
                 raise
-                self.current_state = 'q0'
 
             if self.current_state in final_states:
-                # print('in a final state')
-                # print('next char is ', self.source[self.count + 1])
                 if self.automaton(self.source[self.count + 1]) == False:
                     yield Token(final_states[self.current_state], self.buffer, 'NULO')
-                    # yield 'ok ' + self.current_state + ' ' + final_states[self.current_state] + ' ' + self.buffer
                     self.current_state = 'q0'
+
+        yield Token('EOF', 'EOF', 'NULO')
