@@ -2,6 +2,7 @@ import string
 
 from compiler.lexical.automata_definition import transitions
 from compiler.lexical.automata_definition import final_states
+from compiler.lexical.token import Token
 
 letters = string.ascii_lowercase + string.ascii_uppercase
 L = [i for i in letters]
@@ -67,12 +68,14 @@ class Scanner():
             # print('got to state', self.current_state)
 
             if self.current_state == False:
-                yield 'error ' + c
+                yield Token('ERRO', 'errotext', 'NULO')
+                # yield 'error ' + c
                 self.current_state = 'q0'
 
             if self.current_state in final_states:
                 # print('in a final state')
                 # print('next char is ', self.source[self.count + 1])
                 if self.automaton(self.source[self.count + 1]) == False:
-                    yield 'ok ' + self.current_state + ' ' + final_states[self.current_state] + ' ' + self.buffer
+                    yield Token(final_states[self.current_state], self.buffer, 'NULO')
+                    # yield 'ok ' + self.current_state + ' ' + final_states[self.current_state] + ' ' + self.buffer
                     self.current_state = 'q0'

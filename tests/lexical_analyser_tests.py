@@ -1,3 +1,4 @@
+# RUN THIS FILE FROM THE ROOT
 import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -14,14 +15,12 @@ test_strings = [
     '+-',
 ]
 
-# f = open('tokens_test.mgol')
-f = open('source_test.mgol')
+# f = open('tests/tokens_test.mgol')
+f = open('tests/source_test.mgol')
 
 with f:
     f1 = f.read()
 
-# for i in range(5):
-#     print(repr(f1[i]))
 
 scanner = lexical.Scanner(f1)
 for token in scanner.next():
