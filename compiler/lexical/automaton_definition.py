@@ -1,3 +1,22 @@
+import string
+letters = string.ascii_lowercase + string.ascii_uppercase
+
+L = [i for i in letters]
+D = [str(i) for i in range(10)]
+
+valid = [
+    '+', '-', '/', '*',
+    '(', ')',
+    '<', '>', '=',
+    '{', '}',
+    ';', ',','.', '_',
+    '\'', '\"',
+    '\\',
+    '\n', '\t', ' '
+]
+
+alphabet = L + D + valid
+
 transitions = {
     'q0':{
         '\t':'q0',
