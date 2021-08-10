@@ -24,10 +24,6 @@ inicio
     D<-B;
     C<-5.0;
 
-    enquanto (B<5)
-        B<-B+1;
-    fimenquanto
-
     escreva "\nB=\n";
     escreva D;
     escreva "\n";
