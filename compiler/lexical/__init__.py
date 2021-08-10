@@ -1,8 +1,8 @@
 from compiler.lexical.symbol_table import is_identifier
 import string
 
-from compiler.lexical.automata_definition import transitions
-from compiler.lexical.automata_definition import final_states
+from compiler.lexical.automaton_definition import transitions
+from compiler.lexical.automaton_definition import final_states
 from compiler.lexical.token import Token
 from compiler.lexical.symbol_table import *
 
