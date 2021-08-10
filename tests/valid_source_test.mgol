@@ -1,4 +1,5 @@
 inicio
+    {Comentario de incio do codigo}
     varinicio
         A lit;
         B inteiro;
