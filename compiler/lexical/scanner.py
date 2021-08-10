@@ -86,7 +86,7 @@ class Scanner():
                             symbol_table.append(token)
                             yield token
                     elif token.classe == 'LIT':
-                        token.tipo == 'literal'
+                        token.tipo = 'literal'
                         yield token
                     elif token.classe == 'NUM':
                         if '.' in token.lexema:

@@ -27,7 +27,9 @@ s = scanner.Scanner(f1)
 for token in s.next():
     print(token)
 
-print(symbol_table.symbol_table)
+print('\nSymbol Table:')
+for token in symbol_table.symbol_table:
+    print(token)
 
 # for s in test_strings:
 #     print('Current test string: ', s)
