@@ -1,8 +1,10 @@
+from compiler.lexical.symbol_table import is_identifier
 import string
 
 from compiler.lexical.automata_definition import transitions
 from compiler.lexical.automata_definition import final_states
 from compiler.lexical.token import Token
+from compiler.lexical.symbol_table import *
 
 letters = string.ascii_lowercase + string.ascii_uppercase
 L = [i for i in letters]
@@ -21,7 +23,7 @@ class Scanner():
         self.buffer = ''
 
         if source[-1] != '\n':
-            print('File shoud end with a \\n, exiting...')
+            print('File should end with a \\n, exiting...')
             exit()
 
     def automaton(self, character):
@@ -34,7 +36,6 @@ class Scanner():
                 if character in alphabet:
                     return transitions[self.current_state]['ANYTHING']
             #Verify if is a CHARACTER or DIGIT then verify if has transitions
-            #FIXME generalize this structure
             else:
                 if character in L:
                     # Rule exception for num type
@@ -78,11 +79,31 @@ class Scanner():
 
             if self.current_state == False:
                 yield Token('ERRO', 'ln '+str(self.line)+' col: ' + str(self.column), 'NULO')
-                raise
+                self.current_state = 'q0'
 
             if self.current_state in final_states:
                 if self.automaton(self.source[self.count + 1]) == False:
-                    yield Token(final_states[self.current_state], self.buffer, 'NULO')
+                    token = Token(final_states[self.current_state], self.buffer, 'NULO')
+
+                    if token.classe == 'ID':
+                        in_table = is_identifier(token.lexema)
+                        if in_table:
+                            yield in_table
+                        else:
+                            symbol_table.append(token)
+                            yield token
+                    elif token.classe == 'LIT':
+                        token.tipo == 'literal'
+                        yield token
+                    elif token.classe == 'NUM':
+                        if '.' in token.lexema:
+                            token.tipo = 'real'
+                        else:
+                            token.tipo = 'inteiro'
+                        yield token
+                    else:
+                        yield token
+
                     self.current_state = 'q0'
 
         yield Token('EOF', 'EOF', 'NULO')

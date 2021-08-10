@@ -23,13 +23,14 @@ with f:
     f1 = f.read()
 
 
-# scanner = lexical.Scanner(f1)
-# for token in scanner.next():
-#     print(token)
+scanner = lexical.Scanner(f1)
+for token in scanner.next():
+    print(token)
 
-for s in test_strings:
-    print('Current test string: ', s)
-    scanner = lexical.Scanner(s)
-    # print(next(scanner.next()))
-    for token in scanner.next():
-        print(token)
+# for s in test_strings:
+#     print('Current test string: ', s)
+#     scanner = lexical.Scanner(s)
+#     # print(next(scanner.next()))
+#     for token in scanner.next():
+#         print(token)
+
