@@ -1,0 +1,44 @@
+FIRST(P') = FIRST(P) = {inicio}
+FIRST(P) = {inicio}
+FIRST(V) = {varinicio}
+FIRST(LV) = FIRST(D) | varfim = { ,varfim}
+FIRST(D) = FIRST(TIPO) = {inteiro, real, literal}
+FIRST(L) = {id}
+FIRST(TIPO) = {inteiro, real, literal}
+FIRST(A) = FIRST(ES) = {leia, escreva}
+FIRST(ES) = {leia, escreva}
+FIRST(ARG) = {lit, num, id}
+FIRST(A) = FIRST(CMD) = {id}
+FIRST(CMD) = {id}
+FIRST(LD) = FIRST(OPRD) = {id, num}
+FIRST(OPRD) = {id, num}
+FIRST(A) = FIRST(COND) | FIRST(R) | fim = {}
+FIRST(COND) = FIRST(CAB) = {se}
+FIRST(CAB) = {se}
+FIRST(EXP_R) = FIRST(OPRD) = {id, num}
+FIRST(CP) = FIRST(ES) | FIRST(CMD) | FIRST(COND) | fimse = {leia, escreva, id, se, fimse}
+FIRST(R) = {repita}
+FIRST(CP_R) = FIRST(ES) | FIRST(CMD) | FIRST(COND) | fimrepita = {leia, escreva, id, se, fimrepita}
+
+
+FOLLOW(P') = {$}
+FOLLOW(P) = {}
+FOLLOW(V) = {}
+FOLLOW(LV) = {}
+FOLLOW(D) = {}
+FOLLOW(L) = {}
+FOLLOW(TIPO) = {}
+FOLLOW(A) = {}
+FOLLOW(ES) = {}
+FOLLOW(ARG) = {}
+FOLLOW(A) = {}
+FOLLOW(CMD) = {}
+FOLLOW(LD) = {}
+FOLLOW(OPRD) = {}
+FOLLOW(A) = {}
+FOLLOW(COND) = {}
+FOLLOW(CAB) = {}
+FOLLOW(EXP_R) = {}
+FOLLOW(CP) = {}
+FOLLOW(R) = {}
+FOLLOW(CP_R) = {}
