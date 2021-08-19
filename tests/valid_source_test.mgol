@@ -1,7 +1,7 @@
 inicio
     {Comentario de incio do codigo}
     varinicio
-        A lit;
+        A literal;
         B inteiro;
         D inteiro;
         C real;
@@ -24,6 +24,10 @@ inicio
     B<-B+3;
     D<-B;
     C<-5.0;
+
+    repita(B<5)
+        B<-B+1;
+    fimrepita
 
     escreva "\nB=\n";
     escreva D;
