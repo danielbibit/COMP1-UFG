@@ -1,7 +1,7 @@
 FIRST(P') = FIRST(P) = {inicio}
 FIRST(P) = {inicio}
 FIRST(V) = {varinicio}
-FIRST(LV) = FIRST(D) | varfim = { ,varfim}
+FIRST(LV) = FIRST(D) U varfim = { ,varfim}
 FIRST(D) = FIRST(TIPO) = {inteiro, real, literal}
 FIRST(L) = {id}
 FIRST(TIPO) = {inteiro, real, literal}
@@ -12,13 +12,13 @@ FIRST(A) = FIRST(CMD) = {id}
 FIRST(CMD) = {id}
 FIRST(LD) = FIRST(OPRD) = {id, num}
 FIRST(OPRD) = {id, num}
-FIRST(A) = FIRST(COND) | FIRST(R) | fim = {}
+FIRST(A) = FIRST(COND) U FIRST(R) U fim = {}
 FIRST(COND) = FIRST(CAB) = {se}
 FIRST(CAB) = {se}
 FIRST(EXP_R) = FIRST(OPRD) = {id, num}
-FIRST(CP) = FIRST(ES) | FIRST(CMD) | FIRST(COND) | fimse = {leia, escreva, id, se, fimse}
+FIRST(CP) = FIRST(ES) U FIRST(CMD) U FIRST(COND) U fimse = {leia, escreva, id, se, fimse}
 FIRST(R) = {repita}
-FIRST(CP_R) = FIRST(ES) | FIRST(CMD) | FIRST(COND) | fimrepita = {leia, escreva, id, se, fimrepita}
+FIRST(CP_R) = FIRST(ES) U FIRST(CMD) U FIRST(COND) U fimrepita = {leia, escreva, id, se, fimrepita}
 
 
 FOLLOW(P') = {$}
