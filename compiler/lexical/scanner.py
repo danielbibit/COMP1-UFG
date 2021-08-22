@@ -29,6 +29,29 @@ class Scanner():
         #current_state don't have a transition
         return False
 
+    def error_message(self, error_character):
+        if self.current_state == 'q0':
+            return 'Error on line ' + str(self.line) + ' column ' + str(self.column) + ', the character \'' \
+            + error_character + '\' is not valid in this language.'
+        else:
+            return 'Undefined lexical error'
+
+    def classify_token(self, token):
+        if token.classe == 'ID':
+            if not is_identifier(token.lexema):
+                symbol_table.append(token)
+
+        elif token.classe == 'LIT':
+            token.tipo = 'literal'
+
+        elif token.classe == 'NUM':
+            if '.' in token.lexema:
+                token.tipo = 'real'
+            else:
+                token.tipo = 'inteiro'
+
+        return token
+
     def next(self):
         while self.count < self.source_size-1:
             self.count += 1
@@ -48,34 +71,13 @@ class Scanner():
 
             if self.current_state == False:
                 self.current_state = 'q0'
-                yield Token('ERRO', 'ln '+str(self.line)+' col: ' + str(self.column), 'NULO')
+                yield Token('ERRO', self.error_message(c), 'NULO')
 
             if self.current_state in final_states:
                 if self.automaton(self.source[self.count + 1]) == False:
                     token = Token(final_states[self.current_state], self.buffer, 'NULO')
 
-                    if token.classe == 'ID':
-                        in_table = is_identifier(token.lexema)
-
-                        if in_table:
-                            yield in_table
-                        else:
-                            symbol_table.append(token)
-
-                            yield token
-                    elif token.classe == 'LIT':
-                        token.tipo = 'literal'
-
-                        yield token
-                    elif token.classe == 'NUM':
-                        if '.' in token.lexema:
-                            token.tipo = 'real'
-                        else:
-                            token.tipo = 'inteiro'
-
-                        yield token
-                    else:
-                        yield token
+                    yield self.classify_token(token)
 
                     self.current_state = 'q0'
 

@@ -7,10 +7,10 @@ inicio
     varfim;
     escreva "Digite B";
     leia B;
-    escreva "Digite A:";
+    escreva "Digite A":
     leia A;
 
-    se(B>2)
+    se(B>2Aq)
     entao
         se(B<=4)
         entao

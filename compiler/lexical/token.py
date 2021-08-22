@@ -5,4 +5,5 @@ class Token():
         self.tipo = tipo
 
     def __repr__(self) -> str:
-        return 'classe: ' + self.classe + ', lexema: ' + self.lexema + ', tipo: ' + self.tipo
+        return '\'' + self.lexema + '\'\nclasse: ' + self.classe + ', tipo: ' + self.tipo + '\n'
+        # return 'classe: ' + self.classe + ', lexema: ' + self.lexema + ', tipo: ' + self.tipo
