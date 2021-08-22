@@ -52,10 +52,7 @@ class TestLexical(unittest.TestCase):
 
         #Test whole source code
         f = open('tests/resources/valid_source_test.mgol')
-        with f:
-            f1 = f.read()
-
-        s = scanner.Scanner(f1)
+        s = scanner.Scanner(f)
 
         tokens = [t for t in s.next()]
 
@@ -64,9 +61,7 @@ class TestLexical(unittest.TestCase):
 
     def test_valid_source_code(self):
         f = open('tests/resources/valid_source_test.mgol')
-        with f:
-            f1 = f.read()
-        s = scanner.Scanner(f1)
+        s = scanner.Scanner(f)
         for token in s.next():
             self.assertNotEqual(token.classe, 'ERRO')
 
@@ -74,9 +69,7 @@ class TestLexical(unittest.TestCase):
     @unittest.expectedFailure
     def test_invalid_source_code(self):
         f = open('tests/resources/invalid_source_test.mgol')
-        with f:
-            f1 = f.read()
-        s = scanner.Scanner(f1)
+        s = scanner.Scanner(f)
         for token in s.next():
             self.assertNotEqual(token.classe, 'ERRO')
 
