@@ -51,7 +51,7 @@ class TestLexical(unittest.TestCase):
             self.assertEqual(tokens[-1].classe, 'EOF')
 
         #Test whole source code
-        f = open('tests/valid_source_test.mgol')
+        f = open('tests/resources/valid_source_test.mgol')
         with f:
             f1 = f.read()
 
@@ -63,7 +63,7 @@ class TestLexical(unittest.TestCase):
 
 
     def test_valid_source_code(self):
-        f = open('tests/valid_source_test.mgol')
+        f = open('tests/resources/valid_source_test.mgol')
         with f:
             f1 = f.read()
         s = scanner.Scanner(f1)
@@ -73,7 +73,7 @@ class TestLexical(unittest.TestCase):
 
     @unittest.expectedFailure
     def test_invalid_source_code(self):
-        f = open('tests/invalid_source_test.mgol')
+        f = open('tests/resources/invalid_source_test.mgol')
         with f:
             f1 = f.read()
         s = scanner.Scanner(f1)

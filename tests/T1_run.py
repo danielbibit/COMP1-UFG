@@ -6,7 +6,7 @@ import compiler.lexical.scanner as scanner
 import compiler.lexical.symbol_table as symbol_table
 
 # f = open('tests/tokens_test.mgol')
-f = open('tests/valid_source_test.mgol')
+f = open('tests/resources/valid_source_test.mgol')
 # f = open('tests/invalid_source_test.mgol')
 
 with f:

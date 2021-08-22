@@ -1,18 +1,37 @@
+P' -> P
+P -> inicio V A
+V -> varinicio LV
+LV -> D LV | varfim ;
+D -> TIPO L ;
+L -> id VIR L | id
+TIPO -> inteiro | real | literal
+A -> ES A | CMD A | COND A | R A | fim
+ES -> leia id ; | escreva ARG ;
+ARG -> lit | num | id
+CMD -> id rcb LD ;
+LD -> OPRD opm OPRD | OPRD
+OPRD -> id | num
+COND -> CAB CP
+CAB -> se ( EXP_R ) entao
+EXP_R -> OPRD opr OPRD
+CP -> ES CP  | CMD CP | COND CP | fimse
+R -> repita ( EXP_R ) CP_R
+CP_R -> ES CP_R | CMD CP_R | COND CP_R | fimrepita
+
+
 FIRST(P') = FIRST(P) = {inicio}
 FIRST(P) = {inicio}
 FIRST(V) = {varinicio}
-FIRST(LV) = FIRST(D) U varfim = { ,varfim}
+FIRST(LV) = FIRST(D) U varfim = {inteiro, real, literal ,varfim}
 FIRST(D) = FIRST(TIPO) = {inteiro, real, literal}
 FIRST(L) = {id}
 FIRST(TIPO) = {inteiro, real, literal}
-FIRST(A) = FIRST(ES) = {leia, escreva}
+FIRST(A) = FIRST(ES) U  FIRST(CMD) U  FIRST(COND) U FIRST(R) U fim = {leia, escreva, id, se, repita, fim}
 FIRST(ES) = {leia, escreva}
 FIRST(ARG) = {lit, num, id}
-FIRST(A) = FIRST(CMD) = {id}
 FIRST(CMD) = {id}
 FIRST(LD) = FIRST(OPRD) = {id, num}
 FIRST(OPRD) = {id, num}
-FIRST(A) = FIRST(COND) U FIRST(R) U fim = {}
 FIRST(COND) = FIRST(CAB) = {se}
 FIRST(CAB) = {se}
 FIRST(EXP_R) = FIRST(OPRD) = {id, num}
@@ -22,23 +41,21 @@ FIRST(CP_R) = FIRST(ES) U FIRST(CMD) U FIRST(COND) U fimrepita = {leia, escreva,
 
 
 FOLLOW(P') = {$}
-FOLLOW(P) = {}
-FOLLOW(V) = {}
-FOLLOW(LV) = {}
-FOLLOW(D) = {}
-FOLLOW(L) = {}
-FOLLOW(TIPO) = {}
-FOLLOW(A) = {}
-FOLLOW(ES) = {}
-FOLLOW(ARG) = {}
-FOLLOW(A) = {}
-FOLLOW(CMD) = {}
-FOLLOW(LD) = {}
-FOLLOW(OPRD) = {}
-FOLLOW(A) = {}
-FOLLOW(COND) = {}
-FOLLOW(CAB) = {}
-FOLLOW(EXP_R) = {}
-FOLLOW(CP) = {}
-FOLLOW(R) = {}
-FOLLOW(CP_R) = {}
+FOLLOW(P) = FOLLOW(P') = {$}
+FOLLOW(V) = FIRST(A) = {leia, escreva, id, se, repita, fim}
+FOLLOW(LV) = FOLLOW(V) = {leia, escreva, id, se, repita, fim}
+FOLLOW(D) = FIRST(LV) = {inteiro, real, literal ,varfim}
+FOLLOW(L) = FOLLOW(D) = {}
+FOLLOW(TIPO) = FIRST(L) = {id}
+FOLLOW(A) = FOLLOW(P) = {$}
+FOLLOW(ES) = FOLLOW(A) U FOLLOW(CP) U FOLLOW(CP_R) = {$, leia, escreva, id, se, repita, fim, fimse, fimrepita }
+FOLLOW(ARG) =  {;}
+FOLLOW(CMD) = FOLLOW(A) U FOLLOW(CP) U FOLLOW(CP_R) = {$, leia, escreva, id, se, repita, fim, fimse, fimrepita}
+FOLLOW(LD) = {;}
+FOLLOW(OPRD) FOLLOW(OPRD) U FOLLOW(LD) = {opm, opr, ;}
+FOLLOW(COND) = FIRST(A) U FIRST(CP) U FIRST(CP_R) = {leia, escreva, id, se, repita, fim, fimse, fimrepita}
+FOLLOW(CAB) = FIRST(CP) = {leia, escreva, id, se, fimse}
+FOLLOW(EXP_R) = { ) }
+FOLLOW(CP) = FOLLOW(COND) = {leia, escreva, id, se, repita, fim, fimse, fimrepita}
+FOLLOW(R) = FIRST(A) = {leia, escreva, id, se, repita, fim}
+FOLLOW(CP_R) = FOLLOW(R) = {leia, escreva, id, se, repita, fim}
