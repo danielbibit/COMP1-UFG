@@ -31,14 +31,14 @@ Contains the project requirements and documentation/study material for parts of 
 automaton used in the lexical analyser.
 
 ### tests
-This directory contains the unit tests and the derivables to T1 and T2 parts of the project.
+This directory contains the unit tests and the deliverable to T1 and T2 parts of the project.
 
-The directory resources contains the files that are used in the unit tests and T1 and T2.
+The resources directory contains the files that are used in the unit tests and T1 and T2.
 
-Files that begin with 'test' are unit test files. See the end of this file to see how to run them.
+Files that begin with 'test' are unit test files. See the end of this file to learn how to run them.
 
 ## How to run T1, T2 and T3
-This class is separeted in three small projects, the totality is the final compiler
+This course is separeted in three small projects, that together is the final compiler
 for the mgol language, to run parts of the compiler, use these files, they contain only what was
 requested on the requirement document:
 
