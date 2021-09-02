@@ -18,7 +18,7 @@ class Scanner():
 
         #POSIX files should end with a \n
         if source[-1] != '\n':
-            print('File should end with a \\n, exiting...')
+            print('Files should end with a \\n, exiting...')
             exit()
 
         self.source = source
@@ -27,6 +27,7 @@ class Scanner():
         self.line = 1
         self.column = 0
         self.current_state = 'q0'
+        self.previous_state = 'q0'
         self.buffer = ''
 
     def automaton(self, character):
@@ -38,13 +39,6 @@ class Scanner():
 
         #current_state don't have a transition
         return False
-
-    def error_message(self, error_character):
-        if self.current_state == 'q0':
-            return 'Error on line ' + str(self.line) + ' column ' + str(self.column) + ', the character \'' \
-            + error_character + '\' is not valid in this language.'
-        else:
-            return 'Undefined lexical error'
 
     def classify_token(self, token):
         if token.classe == 'ID':
@@ -63,29 +57,50 @@ class Scanner():
         return token
 
     def next(self):
-        #Iterate the file char by char. The last MUST be a \n
         while self.count < self.source_size-1:
             self.count += 1
             self.column += 1
+            base_message = 'Error on line ' + str(self.line) + ' column ' + str(self.column) + ', '
 
-            # if self.current_state == 'q0':
-            #     self.buffer = ''
+            if self.current_state == 'q0':
+                self.buffer = ''
 
             c = self.source[self.count]
 
             if c == '\n':
+                #Literals can't be multi line, by the regex defintion
+                if self.current_state == 'q11':
+                    yield Token('ERRO', base_message + 'incomplete literal', 'NULO')
+
+                    self.current_state = 'q0'
+
                 self.line += 1
                 self.column = 0
 
             self.buffer += c
+
+            self.previous_state = self.current_state
             self.current_state = self.automaton(c)
 
+            #Error treatment when no trasition is found
             if self.current_state == False:
-                # self.current_state = 'q0'
-                yield Token('ERRO', self.error_message(c), 'NULO')
+                #Something went wrong, and we are left with a incomplete literal or comment in the buffer
+                if self.previous_state== 'q11':
+                    yield Token('ERRO', base_message + 'incomplete literal', 'NULO')
+
+                if self.previous_state == 'q15':
+                    yield Token('ERRO', base_message + 'incomplete comment', 'NULO')
+
+                #Verify if we got here by a invalid character
+                if c not in alphabet:
+                    message = 'the character \''+ c + '\' is not valid in this language.'
+                    yield Token('ERRO', base_message + message, 'NULO')
+
+                #keep reading as if nothign ever happened
+                self.current_state = 'q0'
 
             if self.current_state in final_states:
-                #We are on a final state, and the next char is invalid, we found a token!
+                #We are on a final state, and the next char is invalid, we found a token!!!
                 if self.automaton(self.source[self.count + 1]) == False:
                     token = Token(final_states[self.current_state], self.buffer, 'NULO')
 
@@ -93,5 +108,8 @@ class Scanner():
 
                     self.current_state = 'q0'
                     self.buffer = ''
+
+        if self.current_state == 'q15':
+            yield Token('ERRO','End of file, and you forgot to close your comment with }', 'NULO')
 
         yield Token('EOF', 'EOF', 'NULO')

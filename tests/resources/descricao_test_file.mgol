@@ -1,17 +1,18 @@
 inicio
-{
     varinicio
-        A lit;
+        A literal;
         B inteiro;
         D inteiro;
         C real;
     varfim;
-    escreva "Digite B;
+
+    escreva "Digite B";
     leia B;
-    escreva "Digite A":
+
+    escreva "Digite A:";
     leia A;
 
-    se(B>2Aq)
+    se(B>2)
     entao
         se(B<=4)
         entao
@@ -25,13 +26,13 @@ inicio
     D<-B;
     C<-5.0;
 
-    enquanto (B<5)
+    repita (B<5)
         B<-B+1;
-    fimenquanto
+    fimrepita
 
     escreva "\nB=\n";
     escreva D;
-    escreva "\n;
+    escreva "\n";
     escreva C;
     escreva "\n";
     escreva A;
