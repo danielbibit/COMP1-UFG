@@ -25,3 +25,8 @@ def is_identifier(value):
 
     return False
 
+def get_token_id(lexema):
+    for token in symbol_table:
+        if token.lexema == lexema:
+            return token
+

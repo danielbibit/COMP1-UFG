@@ -44,6 +44,8 @@ class Scanner():
         if token.classe == 'ID':
             if not is_identifier(token.lexema):
                 symbol_table.append(token)
+            else:
+                token = get_token_id(token.lexema)
 
         elif token.classe == 'LIT':
             token.tipo = 'literal'
@@ -104,7 +106,10 @@ class Scanner():
                 if self.automaton(self.source[self.count + 1]) == False:
                     token = Token(final_states[self.current_state], self.buffer, 'NULO')
 
-                    yield self.classify_token(token)
+                    if (token.classe == 'COMENT'):
+                        pass
+                    else:
+                        yield self.classify_token(token)
 
                     self.current_state = 'q0'
                     self.buffer = ''
