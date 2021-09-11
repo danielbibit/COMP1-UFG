@@ -1,0 +1,19 @@
+
+P => inicio V A;
+V => varinicio LV;
+LV => D LV | varfim pt_v;
+D => TIPO L pt_v;
+L => id vir L | id;
+TIPO => inteiro | real | literal;
+A => ES A | CMD A | COND A | R A | fim;
+ES => leia id pt_v | escreva ARG pt_v;
+ARG => lit | num | id;
+CMD => id rcb LD pt_v;
+LD => OPRD opm OPRD | OPRD;
+OPRD => id | num;
+COND => CAB CP;
+CAB => se ( EXP_R ) entao;
+EXP_R => OPRD opr OPRD;
+CP => ES CP  | CMD CP | COND CP | fimse;
+R => repita ( EXP_R ) CP_R;
+CP_R => ES CP_R | CMD CP_R | COND CP_R | fimrepita;
