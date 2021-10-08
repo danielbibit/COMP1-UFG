@@ -88,20 +88,20 @@ transitions['q11']['\"'] = 'q12'
 transitions['q15']['}'] = 'q16'
 
 final_states = {
-    'q1': 'NUM',
-    'q3': 'NUM',
-    'q6': 'NUM',
-    'q9': 'LIT',
-    'q12': 'LIT',
-    'q13': 'ID',
+    'q1': 'num',
+    'q3': 'num',
+    'q6': 'num',
+    'q9': 'lit',
+    'q12': 'lit',
+    'q13': 'id',
     'q16': 'COMENT',
-    'q18': 'OPR',
-    'q19': 'OPR',
-    'q20': 'RCB',
-    'q21': 'OPR',
-    'q22': 'OPM',
-    'q23': 'AB_P',
-    'q24': 'FC_P',
-    'q25': 'PT_V',
-    'q26': 'VIR'
+    'q18': 'opr',
+    'q19': 'opr',
+    'q20': 'rcb',
+    'q21': 'opr',
+    'q22': 'opm',
+    'q23': 'ab_p',
+    'q24': 'fc_p',
+    'q25': 'pt_v',
+    'q26': 'vir'
 }

@@ -41,16 +41,16 @@ class Scanner():
         return False
 
     def classify_token(self, token):
-        if token.classe == 'ID':
+        if token.classe == 'id':
             if not is_identifier(token.lexema):
                 symbol_table.append(token)
             else:
                 token = get_token_id(token.lexema)
 
-        elif token.classe == 'LIT':
+        elif token.classe == 'lit':
             token.tipo = 'literal'
 
-        elif token.classe == 'NUM':
+        elif token.classe == 'num':
             if '.' in token.lexema:
                 token.tipo = 'real'
             else:

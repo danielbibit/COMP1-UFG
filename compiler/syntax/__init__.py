@@ -1,31 +1,31 @@
 import csv
 
-action = {}
+action_table = {}
 with open('compiler/syntax/action.csv') as csv_file:
     data = csv.DictReader(csv_file, delimiter=',')
 
     for line in data:
         state = line['state']
         del line['state']
-        action[state] = {}
+        action_table[state] = {}
         for non_terminal, transition in line.items():
             if transition != '':
-                action[state][non_terminal] = transition
+                action_table[state][non_terminal] = transition
 
 
-goto = {}
+goto_table = {}
 with open('compiler/syntax/goto.csv') as csv_file:
     data = csv.DictReader(csv_file, delimiter=',')
 
     for line in data:
         state = line['state']
         del line['state']
-        goto[state] = {}
+        goto_table[state] = {}
         for non_terminal, transition in line.items():
             if transition != '':
-                goto[state][non_terminal] = transition
+                goto_table[state][non_terminal] = transition
 
-grammar = {}
+grammar_definition = {}
 with open('docs/grammar.txt') as f:
 
     for line_number, line in enumerate(f):
@@ -35,6 +35,6 @@ with open('docs/grammar.txt') as f:
         rule['B'] = rule_split[1][1:]
         rule['len_B'] = len(rule['B'].split(' '))
 
-        grammar[str(line_number+1)] = rule
+        grammar_definition[str(line_number+1)] = rule
 
 
