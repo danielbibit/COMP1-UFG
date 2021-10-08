@@ -1,24 +1,3 @@
-P' -> P
-P -> inicio V A
-V -> varinicio LV
-LV -> D LV | varfim ;
-D -> TIPO L ;
-L -> id VIR L | id
-TIPO -> inteiro | real | literal
-A -> ES A | CMD A | COND A | R A | fim
-ES -> leia id ; | escreva ARG ;
-ARG -> lit | num | id
-CMD -> id rcb LD ;
-LD -> OPRD opm OPRD | OPRD
-OPRD -> id | num
-COND -> CAB CP
-CAB -> se ( EXP_R ) entao
-EXP_R -> OPRD opr OPRD
-CP -> ES CP  | CMD CP | COND CP | fimse
-R -> repita ( EXP_R ) CP_R
-CP_R -> ES CP_R | CMD CP_R | COND CP_R | fimrepita
-
-
 FIRST(P') = FIRST(P) = {inicio}
 FIRST(P) = {inicio}
 FIRST(V) = {varinicio}
@@ -41,11 +20,11 @@ FIRST(CP_R) = FIRST(ES) U FIRST(CMD) U FIRST(COND) U fimrepita = {leia, escreva,
 
 
 FOLLOW(P') = {$}
-FOLLOW(P) = FOLLOW(P') = {$}
-FOLLOW(V) = FIRST(A) = {leia, escreva, id, se, repita, fim}
-FOLLOW(LV) = FOLLOW(V) = {leia, escreva, id, se, repita, fim}
+FOLLOW(P)  = {$}
+FOLLOW(V) = {leia, escreva, id, se, repita, fim}
+FOLLOW(LV) = {leia, escreva, id, se, repita, fim}
 FOLLOW(D) = FIRST(LV) = {inteiro, real, literal ,varfim}
-FOLLOW(L) = FOLLOW(D) = {}
+FOLLOW(L) = FOLLOW(D) = {pt_v}
 FOLLOW(TIPO) = FIRST(L) = {id}
 FOLLOW(A) = FOLLOW(P) = {$}
 FOLLOW(ES) = FOLLOW(A) U FOLLOW(CP) U FOLLOW(CP_R) = {$, leia, escreva, id, se, repita, fim, fimse, fimrepita }

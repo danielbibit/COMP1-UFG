@@ -6,4 +6,6 @@ import compiler.syntax as syntax
 
 # print(syntax.goto['state'])
 # print(syntax.action['0']['P'])
-print(syntax.action)
+# print(syntax.action)
+
+print(syntax.grammar)
