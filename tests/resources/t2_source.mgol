@@ -2,7 +2,7 @@ inicio
 
     varinicio
 
-        literal A;
+        literal A,B;
 
         inteiro B;
 
@@ -16,7 +16,7 @@ inicio
 
     leia B;
 
-    escreva "Digite A:";
+    escreva "Digite A";
 
     leia A;
 

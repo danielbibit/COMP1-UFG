@@ -1,3 +1,4 @@
+import logging as log
 from compiler.syntax import *
 
 stack = []
@@ -29,45 +30,53 @@ class Analyzer():
         a = next(scanner_iterator).classe
         t = 0
 
-        print('first Token: ', a)
+        log.debug('first Token: %s', a)
         while True:
             s = stack[-1]
 
             next_action = self.action(s, a)
 
             if(next_action[0] == 'SHIFT'):
-                print('shift from ', stack[-1])
+                log.debug('shift from %s', stack[-1])
                 t = next_action[1]
 
                 stack.append(t)
 
                 a = next(scanner_iterator).classe
-                print('shift to ', t)
-                print('new token: ', a)
+                log.debug('shift to %s', t)
+                log.debug('new token: %s', a)
             elif(next_action[0] == 'REDUCE'):
-                print('reduced on ', stack[-1])
+                log.debug('reduced on %s', stack[-1])
 
+                count = 0
                 for i in range(grammar_definition[next_action[1]]['len_B']):
                     stack.pop()
-
-
+                    count += 1
+                log.debug('poped %s items from the stack', count, )
+                log.debug('current stack: %s', stack)
                 t = stack[-1]
 
                 A = grammar_definition[next_action[1]]['A']
                 B = grammar_definition[next_action[1]]['B']
-                print(A + ' => ' + B)
 
-                print('t ', t)
+                tab = ''
+                # for i in range(len(stack)):
+                #     tab += '  '
+                print(tab + A + ' => ' + B)
+
+                log.debug('t %s', t)
+
                 stack.append(self.goto(t, A))
-                print('goto ', stack[-1])
-                print('with token ', a)
-            elif(next_action[0] == 'ACCEPT'):
-                print('entrei 3')
-                print(next_action[1])
 
+                log.debug('goto %s', stack[-1])
+                log.debug('with token %s', a)
+            elif(next_action[0] == 'ACCEPT'):
+                print(next_action[1])
+                return
             else:
                 print('entrei 4')
                 return
 
-            input()
+            # input()
+            # print()
 
