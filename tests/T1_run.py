@@ -11,7 +11,7 @@ f = open('tests/resources/descricao_test_file.mgol')
 # f = open('tests/resources/valid_source_test.mgol')
 
 s = scanner.Scanner(f)
-for token in s.next():
+for token in s.tokens():
     print(token)
     if token.classe == 'ERRO':
         # exit()

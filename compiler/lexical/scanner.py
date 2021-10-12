@@ -58,7 +58,7 @@ class Scanner():
 
         return token
 
-    def next(self):
+    def tokens(self):
         while self.count < self.source_size-1:
             self.count += 1
             self.column += 1

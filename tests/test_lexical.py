@@ -38,7 +38,7 @@ class TestLexical(unittest.TestCase):
 
         for string in everything:
             s = scanner.Scanner(string)
-            for token in s.next():
+            for token in s.tokens():
                 self.assertNotEqual(token.classe, 'ERRO')
 
 
@@ -46,7 +46,7 @@ class TestLexical(unittest.TestCase):
         for string in self.strings_num:
             s = scanner.Scanner(string)
 
-            tokens = [t for t in s.next()]
+            tokens = [t for t in s.tokens()]
 
             self.assertEqual(tokens[-1].classe, 'EOF')
 
@@ -54,7 +54,7 @@ class TestLexical(unittest.TestCase):
         f = open('tests/resources/valid_source_test.mgol')
         s = scanner.Scanner(f)
 
-        tokens = [t for t in s.next()]
+        tokens = [t for t in s.tokens()]
 
         self.assertEqual(tokens[-1].classe, 'EOF')
 
@@ -62,7 +62,7 @@ class TestLexical(unittest.TestCase):
     def test_valid_source_code(self):
         f = open('tests/resources/valid_source_test.mgol')
         s = scanner.Scanner(f)
-        for token in s.next():
+        for token in s.tokens():
             self.assertNotEqual(token.classe, 'ERRO')
 
 
@@ -70,7 +70,7 @@ class TestLexical(unittest.TestCase):
     def test_invalid_source_code(self):
         f = open('tests/resources/invalid_source_test.mgol')
         s = scanner.Scanner(f)
-        for token in s.next():
+        for token in s.tokens():
             self.assertNotEqual(token.classe, 'ERRO')
 
 

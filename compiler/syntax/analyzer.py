@@ -26,7 +26,7 @@ class Analyzer():
             return goto_table[state][non_terminal]
 
     def run(self):
-        scanner_iterator = self.scanner.next()
+        scanner_iterator = self.scanner.tokens()
         a = next(scanner_iterator).classe
         t = 0
 
