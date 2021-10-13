@@ -1,13 +1,12 @@
 import logging as log
 from compiler.syntax import *
 
-stack = []
-stack.append('0')
-
 class Analyzer():
     def __init__(self, scanner):
         self.scanner = scanner
         self.error = False
+        self.stack = []
+        self.stack.append('0')
 
     def action(self, state, symbol):
         if symbol not in action_table[state]:
@@ -38,7 +37,7 @@ class Analyzer():
         a = next(scanner_token)
 
         while True:
-            s = stack[-1]
+            s = self.stack[-1]
 
             log.debug('Next action state: %s, token: %s', s, a.classe)
 
@@ -48,10 +47,10 @@ class Analyzer():
                 next_action = self.action(s, a.classe)
 
             if(next_action[0] == 'SHIFT'):
-                log.debug('shift from %s', stack[-1])
+                log.debug('shift from %s', self.stack[-1])
                 t = next_action[1]
 
-                stack.append(t)
+                self.stack.append(t)
 
                 if recover_token:
                     recover_token = None
@@ -60,29 +59,29 @@ class Analyzer():
 
                 log.debug('shift to %s', t)
                 log.debug('with token: %s', a.classe)
-                log.debug('current stack: %s', stack)
+                log.debug('current stack: %s', self.stack)
 
             elif(next_action[0] == 'REDUCE'):
-                log.debug('reduced on %s', stack[-1])
+                log.debug('reduced on %s', self.stack[-1])
 
                 for i in range(grammar_definition[next_action[1]]['len_B']):
-                    stack.pop()
+                    self.stack.pop()
 
                 log.debug('poped %s items from the stack', grammar_definition[next_action[1]]['len_B'])
-                log.debug('current stack: %s', stack)
+                log.debug('current stack: %s', self.stack)
 
                 A = grammar_definition[next_action[1]]['A']
                 B = grammar_definition[next_action[1]]['B']
 
                 print(A + ' => ' + B)
 
-                t = stack[-1]
+                t = self.stack[-1]
 
                 log.debug('t %s', t)
 
-                stack.append(self.goto(t, A))
+                self.stack.append(self.goto(t, A))
 
-                log.debug('goto %s', stack[-1])
+                log.debug('goto %s', self.stack[-1])
                 log.debug('with token %s', a.classe)
 
             elif(next_action[0] == 'ACCEPT'):
@@ -104,7 +103,7 @@ class Analyzer():
                 else:
                     print('\nSyntax error found on: line %d colum %d' % (self.scanner.line, self.scanner.column))
 
-                    expecting_tokens = list(action_table[stack[-1]])
+                    expecting_tokens = list(action_table[self.stack[-1]])
 
                     print('expecting: ', expecting_tokens)
                     print('But instead got: ', next_action[1])
@@ -114,7 +113,6 @@ class Analyzer():
                         recover_token = expecting_tokens[0]
 
                         print('Inserting missing token and recovering\n')
-
                     #panic
                     else:
                         token_found = False
