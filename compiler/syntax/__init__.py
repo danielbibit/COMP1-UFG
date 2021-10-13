@@ -25,6 +25,7 @@ with open('compiler/syntax/goto.csv') as csv_file:
             if transition != '':
                 goto_table[state][non_terminal] = transition
 
+
 grammar_definition = {}
 with open('docs/grammar.txt') as f:
 
@@ -37,4 +38,11 @@ with open('docs/grammar.txt') as f:
 
         grammar_definition[str(line_number+1)] = rule
 
+
+panic_table = {}
+with open('compiler/syntax/panic.csv') as csv_file:
+    data = csv.DictReader(csv_file, delimiter=',')
+
+    for line in data:
+        panic_table[line['non_terminal']] = line['synch'].split(' ')
 

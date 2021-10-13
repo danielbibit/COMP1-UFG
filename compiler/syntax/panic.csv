@@ -1,0 +1,20 @@
+non_terminal,synch
+P’,EOF
+P,EOF
+A,EOF
+V,id fim leia escreva se repita
+D,varfim inteiro real literal
+LV,id fim leia escreva se repita
+TIPO,id
+L,pt_v
+ES,id fim leia escreva se fimse repita fimrepita
+CMD,id fim leia escreva se fimse repita fimrepita
+COND,id fim leia escreva se fimse repita fimrepita
+R,id fim leia escreva se repita
+ARG,pt_v
+LD,pt_v
+OPRD,pt_v opm fc_p opr
+CAB,id leia escreva se fimse
+CP,id fim leia escreva se fimse repita fimrepita
+EXP_R,ab_p
+CP_R,id fim leia escreva se repita
